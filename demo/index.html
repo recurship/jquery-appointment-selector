@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>appointment-selector demo</title>
+    <!-- Load local jQuery. -->
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+
+    <!-- Load moment -->
+    <script src="../node_modules/moment/min/moment-with-locales.min.js"></script>
+
+    <!-- Load local lib and tests. -->
+    <script src="../src/appointment-selector.js"></script>
+  </head>
+  <body>
+    <style>
+      .appointment-selector {
+        padding-top: 20px;
+      }
+
+      .as-header {
+        padding: 5px;
+      }
+
+      .as-prev-day {
+        padding: 5px;
+        display: inline-block;
+        margin-right: 10px;
+      }
+
+      .as-active-date {
+        display: inline-block;
+      }
+
+      .as-next-day {
+        padding: 5px;
+        margin-left: 10px;
+        display: inline-block;
+      }
+
+      .as-time-list {
+        list-style: none;
+        padding-left: 0;
+      }
+      .as-time {
+        padding: 8px;
+        border: 1px solid #AAA;
+        background: #EEE;
+        margin: 5px;
+        display: inline-block;
+        cursor: pointer;
+      }
+
+      .as-time.active {
+        border: 1px solid #333;
+        background: #CCC;
+        font-weight: bold;
+      }
+
+
+    </style>
+    <div id="picker"></div>
+    <script>
+      $('#picker').appointmentSelector({
+        // 0 is sunday
+        times: [
+          {
+            start: 9,
+            end: 15
+          },
+          {
+            start: 9,
+            end: 17
+          },
+          {
+            start: 9,
+            end: 17
+          },
+          {
+            start: 9,
+            end: 17
+          },
+          {
+            start: 9,
+            end: 17
+          },
+          {
+            start: 9,
+            end: 17
+          },
+          {
+            start: 9,
+            end: 17
+          }
+        ],
+        holidays: [
+          '25/12/2017'
+        ],
+
+        bookings: [
+          '2017-05-29T09:00:00.000+01:00'
+        ],
+        select: function(datetime) {
+          console.log('Selected date time:', datetime);
+        }
+      });
+
+    </script>
+  </body>
+</html>

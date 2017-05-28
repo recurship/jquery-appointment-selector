@@ -8,16 +8,18 @@
 (function ($) {
 
   if(!window.moment) {
-    throw new Error('`moment` library is required.');
+    throw new Error('`moment.js` library is required.');
   }
   var elements = [];
   var activeDate = moment().startOf('day');
   var opts = {
     // 0 is sunday
     times: [],
-    // TODO
+    // String, array format is DD/MM/YYYY
     holidays: [],
+    // String array, format is YYYY-MM-DDTHH:mm:ss.SSSZ
     bookings: [],
+    // function triggered on selection
     select: null
   };
 
@@ -34,19 +36,16 @@
     var day = activeDate.day();
     var start = 0;
     var end = 24;
-    if(opts.times && opts.times.length > 0) {
+    if(opts.times && opts.times.length > 0 && opts.times[day]) {
       start = opts.times[day].start;
       end = opts.times[day].end;
     }
 
     for(start; start < end; start++) {
       var slot = moment(activeDate).add(start, 'hours').format('YYYY-MM-DDTHH:mm:ss.SSSZ');
-      console.log(slot);
       var booked = false;
       for(var index in opts.bookings) {
-        // console.log('==>',moment(opts.bookings[index]).local().format('YYYY-MM-DDTHH:mm:ss.SSSZ'));
         if(moment(slot).isSame(moment(opts.bookings[index]), 'hour')) {
-          console.log('==> Blocking', opts.bookings[index]);
           booked = true;
           break;
         }
@@ -70,13 +69,27 @@
     return elements;
   }
 
+  // moves day backward or forward, skipping over holidays as needed.
+  function moveDay(name) {
+    activeDate[name]('1', 'day');
+    if(opts && opts.holidays && Array.isArray(opts.holidays)) {
+      for(var index in opts.holidays) {
+        var holiday = opts.holidays[index];
+        if(moment(holiday, 'DD/MM/YYYY').startOf('day').isSame(activeDate)) {
+          moveDay(name);
+          break;
+        }
+      }
+    }
+  }
+
   $(document).on('click', '.as-prev-day', function() {
-    activeDate.subtract('1', 'day');
+    moveDay('subtract');
     render();
   });
 
   $(document).on('click', '.as-next-day', function() {
-    activeDate.add('1', 'day');
+    moveDay('add');
     render();
   });
 
@@ -87,10 +100,12 @@
       opts.select($(this).attr('data-as-selection'));
   });
 
-
   $.fn.appointmentSelector = function(userOpts) {
     elements = this;
     opts = $.extend( {}, opts, userOpts);
+    // to check if its a holiday today and skip it otherwise
+    activeDate.subtract('1', 'day');
+    moveDay('add');
     return render();
   }
 

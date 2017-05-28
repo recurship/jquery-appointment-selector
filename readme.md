@@ -16,9 +16,10 @@ In your web page:
 <script src="jquery.js"></script>
 <script src="moment.js"></script>
 <script src="dist/appointment-selector.min.js"></script>
+<div id="appoinment"></div>
 <script>
   jQuery(function ($) {
-    $.appointmentSelector({});
+    $('#appoinment').appointmentSelector({});
   });
 </script>
 ```

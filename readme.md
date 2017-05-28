@@ -1,7 +1,8 @@
 # appointment-selector
 
-> Easily select appointments with tons of customization
+> Easily select appointments with tons of customization for the shop.
 
+[<img src="sample.png">]
 
 ## Getting Started
 

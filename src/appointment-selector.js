@@ -5,6 +5,13 @@
  * Copyright (c) 2017 Mashhood Rastgar
  * Licensed under the MIT license.
  */
+
+/**
+ * TODO features
+ * slotSize - ability to have a custom slot size
+ * bookings should also check between hours
+ * formatDate/Time when rendering
+ */
 (function ($) {
 
   if(!window.moment) {

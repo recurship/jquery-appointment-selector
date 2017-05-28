@@ -2,13 +2,12 @@
 
 > Easily select appointments with tons of customization for the shop.
 
-[<img src="sample.png">]
+<img src="sample.png">
 
 ## Getting Started
 
-Download the [production version][min] or the [development version][max].
+Download the [development version][max].
 
-[min]: https://raw.githubusercontent.com/mashhoodr/jquery-appointment-selector/master/dist/jquery.appointment-selector.min.js
 [max]: https://raw.githubusercontent.com/mashhoodr/jquery-appointment-selector/master/dist/jquery.appointment-selector.js
 
 In your web page:
@@ -17,10 +16,10 @@ In your web page:
 <script src="jquery.js"></script>
 <script src="moment.js"></script>
 <script src="dist/appointment-selector.min.js"></script>
-<div id="appoinment"></div>
+<div id="appointment"></div>
 <script>
   jQuery(function ($) {
-    $('#appoinment').appointmentSelector({});
+    $('#appointment').appointmentSelector({});
   });
 </script>
 ```
@@ -43,7 +42,7 @@ Takes an array of strings formatted DD/MM/YYYY, which are days shop will be clos
 
 Takes a string array, format is YYYY-MM-DDTHH:mm:ss.SSSZ - these are the bookings already done in the shop and those slot should not show. These currently check by the hour as well.
 
-*select*
+*select - function(datTime) {}*
 
 Takes a function which is triggered with the `selectedDateTime` when the box is clicked. You can also pick the selected DOM node using `$('.as-time.active')`.
 
